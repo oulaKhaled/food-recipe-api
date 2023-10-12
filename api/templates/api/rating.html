@@ -1,0 +1,33 @@
+{% extends 'api/main.html'%}
+{% block content %}
+{% load static%}
+
+<link rel="stylesheet" href="style.css">
+
+    <div class="container" >
+    <div class="card" style="align-items: center; justify-content: center;">
+        <div id="confirm-box">
+        <div class="rating-box" >
+       
+            <h2> Rate your recipe</h2>
+            <br>
+            <form action="" class="rate-form" method="POST" id="{{recipe}}">
+                {%csrf_token%}
+           
+           <button  type="submit" class="fa-solid fa-star stars my-btn " id="first" ></button>
+            <button type="submit" class="fa-solid fa-star  stars my-btn " id="second"></button>
+            <button type="submit"  class="fa-solid fa-star  stars my-btn " id="third"></button>
+            <button  type="submit" class="fa-solid fa-star  stars my-btn" id="fourth"></button>
+            <button type="submit"  class="fa-solid fa-star  stars my-btn"id="fifth"></button>
+            <br>
+        </form>
+    </div>
+    </div>
+<form action="{% url 'api:recipe'%}"  method="POST" >
+    {%csrf_token%}
+    <input type="submit" value="submit" class="btn btn-primary" style="margin: 40px; width: 240px;">
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'api/main.html'%}
+{% block content %}
+
+
+{%if request.user.is_authenticated %}
+    <div class="container">
+      <div class="header-bar">
+        <a ><h1> Hello {{user}}</h1></a>
+        <br>
+        <h3 ><a href="{% url 'api:logout' %}"  style="color: black;">Logout</a></h3>
+        {% else %}
+        <h3 ><a href="{% url 'api:login'%}" style="color:black">login</a></h3>
+        {% endif %}
+      </div>
+    </div>
+
+
+<div class="card"  >
+<form action="" method="post" enctype="multipart/form-data"  >
+<h1>Add new recipe</h1>
+{% csrf_token%}
+<!-- Recipe Form to add new recipes -->
+  {{form.as_table}}
+ 
+
+ 
+  <input type="submit" class="btn btn-danger" style="width: 300px; margin: 5px 5px; font-weight: bold; height: 50px; font-size: large;" name="btn1" id="btn1">
+</form>
+
+</div>
+
+
+<h1>Recipes</h1>
+<div class="container" >
+<table class= "table table-striped">
+
+  <thead>
+      <tr >
+        <th scope="col"  >name</th>
+        <th scope="col">Edit recipe</th>
+        <th scope="col">description</th>
+        <th scope="col">ingredients</th>
+        <th scope="col">image</th>
+        <th scope="col">time</th>
+        <th scope="col"> rating  
+           </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for recipe in recipes %}
+      
+
+      <tr>
+        <th scope="row">{{recipe.name}} </th>
+        <td><a href="{% url 'api:edit-recipe' recipe.id %}">Edit</a><br>
+          <a href="{% url 'api:delete-recipe' recipe.id %}">delete</a><br>
+         
+        <td>{{recipe.description}}</td>
+        <td>{{recipe.ingredients}}</td>
+        
+        {% if recipe.image %}
+        <td><img src="{{recipe.image}}" width="100"></td>
+        {%else%}
+        <td style="color: red;">no image found</td>
+        {% endif %}
+        <td>{{recipe.time}}</td>
+  <!--- Rating recipe -->
+         {%for rating in ratings %}
+          {% if rating.recipe_id == recipe.id%}
+          <td>
+       
+          <i class="fa-solid fa-star {%if rating.stars > 0 %} checked {% endif %}" ></i>
+          <i class="fa-solid fa-star {%if rating.stars > 1 %} checked {% endif %}" ></i>
+          <i class="fa-solid fa-star {%if rating.stars > 2 %} checked {% endif %}" ></i>
+          <i class="fa-solid fa-star {%if rating.stars > 3 %} checked {% endif %}" ></i>
+          <i class="fa-solid fa-star {%if rating.stars > 4 %} checked {% endif %}" ></i>
+          <a href="{% url 'api:rate-recipe' recipe.id %}"> rate it </a>
+        
+        </td>
+        
+         {% endif %}
+         {% endfor %}
+         
+         {% endfor %}
+          
+    
+   
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+      
+{% endblock content %}

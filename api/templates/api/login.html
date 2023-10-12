@@ -1,0 +1,17 @@
+{% extends 'api/main.html'%}
+{% block content %}
+
+<form action="" method="POST">
+<div class="container" style="margin: 50px;">
+    <div class="card" style="justify-content: center; align-items: center; ">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="submit" class="btn btn-primary" style="width: 140px; margin: 10px 10px;">
+        <h4> Don't have ann account? <a href="{%url 'api:register'%}"> Register here</a></h4>
+        <h2 style="color: red; font-family: 'Courier New', Courier, monospace; align-items:center; font-size: medium;     font-family: 'Pixelify Sans', cursive;" >{{massege}}</h2>
+   
+ 
+    </div>
+</div>
+</form>
+{% endblock %}
