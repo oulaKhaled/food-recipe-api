@@ -1,2 +1,2 @@
 # food-recipe-api
-Food Recipe Api 
+Food Recipe Api -Function based view API
